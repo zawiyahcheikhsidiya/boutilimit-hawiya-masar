@@ -2,2106 +2,944 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#073f3e">
+<meta name="description" content="بوتلميت… هوية ومسار - منصة رقمية لتوثيق تاريخ المدينة وثقافتها وواقعها ورؤيتها للمستقبل">
 <title>بوتلميت… هوية ومسار</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
 <style>
 :root{
-  --green:#003e3d;
-  --green2:#005b57;
-  --green3:#07867f;
-  --gold:#f4bf5d;
-  --gold2:#ffd889;
-  --cream:#f7f6f1;
+  --deep:#053c3c;
+  --deep2:#062f31;
+  --deep3:#0a4846;
+  --teal:#0a6661;
+  --teal2:#10827a;
+  --gold:#f1bd63;
+  --gold2:#ffd98c;
+  --paper:#f7f7f3;
   --white:#fff;
-  --text:#10272a;
-  --muted:#6f7b7d;
-  --border:#dfe5e4;
-  --shadow:0 12px 40px rgba(0,0,0,.12);
+  --ink:#153334;
+  --muted:#728080;
+  --line:#dfe7e5;
+  --shadow:0 18px 60px rgba(5,60,60,.14);
 }
-
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:"Cairo",sans-serif;
-  background:#f5f7f6;
-  color:var(--text);
-}
-button,input,textarea,select{
-  font-family:"Cairo",sans-serif;
-}
-button{cursor:pointer}
+body{margin:0;font-family:"Cairo",sans-serif;background:#f5f7f5;color:var(--ink);overflow-x:hidden}
 a{text-decoration:none;color:inherit}
-img{max-width:100%;display:block}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  height:76px;
-  background:linear-gradient(90deg,#002f2f,#004b49);
-  color:#fff;
-  display:flex;
-  align-items:center;
-  padding:0 28px;
-  border-bottom:1px solid rgba(255,255,255,.14);
+/* header */
+.header{
+  position:fixed;top:0;right:0;left:0;z-index:100;
+  min-height:76px;padding:0 30px;
+  display:grid;grid-template-columns:280px 1fr 300px;align-items:center;gap:20px;
+  color:#fff;background:linear-gradient(90deg,rgba(4,54,55,.96),rgba(4,71,69,.96));
+  border-bottom:1px solid rgba(255,255,255,.12);backdrop-filter:blur(18px);
+  box-shadow:0 10px 35px rgba(0,0,0,.12)
 }
+.brand{display:flex;align-items:center;gap:11px;font-weight:900}
+.brand-mark{width:52px;height:52px;border:1.5px solid var(--gold);border-radius:15px;display:grid;place-items:center;color:var(--gold);position:relative;overflow:hidden}
+.brand-mark:before{content:"";width:20px;height:20px;border:3px solid currentColor;border-top:0;transform:rotate(45deg);position:absolute;bottom:12px}
+.brand-mark:after{content:"";width:4px;height:22px;background:currentColor;position:absolute;bottom:8px}
+.brand strong{display:block;font-size:22px;line-height:1.1}
+.brand small{display:block;color:var(--gold2);font-size:13px;margin-top:4px}
+.nav{display:flex;align-items:stretch;justify-content:center;gap:22px;height:76px}
+.nav a{display:flex;align-items:center;position:relative;font-size:13px;font-weight:800;color:#eff8f7;white-space:nowrap}
+.nav a:after{content:"";height:3px;background:var(--gold);border-radius:4px;position:absolute;bottom:9px;right:0;left:0;transform:scaleX(0);transition:.25s}
+.nav a:hover:after,.nav a.active:after{transform:scaleX(1)}
+.header-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.search{height:40px;width:210px;border:1px solid rgba(255,255,255,.26);border-radius:22px;display:flex;align-items:center;gap:8px;padding:0 13px;background:rgba(0,0,0,.08)}
+.search input{border:0;outline:0;background:transparent;color:#fff;width:100%;font-size:12px}
+.search input::placeholder{color:rgba(255,255,255,.72)}
+.admin-mini{border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.06);color:#fff;border-radius:20px;padding:8px 13px;font-weight:800;font-size:11px}
+.menu-btn{display:none;border:0;background:transparent;color:#fff;font-size:24px}
 
-.nav{
-  width:100%;
-  max-width:1600px;
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-}
+/* hero */
+.hero{position:relative;min-height:770px;padding-top:76px;color:#fff;overflow:hidden;background:var(--deep2)}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .8s ease,transform 8s ease;transform:scale(1.02)}
+.hero-slide.active{opacity:1;transform:scale(1.08)}
+.hero-overlay{position:absolute;inset:0;background:
+  linear-gradient(90deg,rgba(3,44,44,.08) 0%,rgba(3,44,44,.15) 38%,rgba(3,52,52,.88) 78%,rgba(3,52,52,.97) 100%),
+  linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,36,36,.82) 95%)}
+.hero-copy{position:relative;z-index:4;width:min(670px,47vw);margin-right:8vw;padding-top:95px}
+.kicker{color:var(--gold2);font-size:14px;font-weight:900;letter-spacing:.5px;margin-bottom:10px}
+.hero h1{font-size:88px;line-height:.95;margin:0;font-weight:900;letter-spacing:-3px;text-shadow:0 7px 30px rgba(0,0,0,.18)}
+.hero h1 span{display:block;color:var(--gold2);font-size:43px;letter-spacing:-1px;margin-top:16px}
+.hero h2{font-size:26px;margin:26px 0 7px;font-weight:900}
+.hero p{font-size:16px;line-height:2.1;color:rgba(255,255,255,.89);max-width:590px;margin:0}
+.hero-cta{display:inline-flex;align-items:center;gap:18px;margin-top:24px;padding:13px 26px;border-radius:25px;background:linear-gradient(90deg,var(--gold),var(--gold2));color:#173b3a;font-weight:900;font-size:14px;box-shadow:0 14px 35px rgba(241,189,99,.25);transition:.25s}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:0 18px 38px rgba(241,189,99,.35)}
+.hero-arrows button{position:absolute;z-index:5;top:39%;width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.62);background:rgba(0,49,49,.23);color:#fff;font-size:34px;display:grid;place-items:center;backdrop-filter:blur(8px)}
+.prev{right:26px}.next{left:26px}
+.dots{position:absolute;z-index:5;bottom:246px;right:50%;display:flex;gap:7px}
+.dots button{width:8px;height:8px;border-radius:50%;padding:0;border:1px solid #fff;background:transparent}
+.dots button.active{background:var(--gold);border-color:var(--gold)}
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:230px;
-}
+/* section cards */
+.section-rail{position:absolute;z-index:6;right:18px;left:18px;bottom:16px;display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+.section-card{min-height:214px;padding:18px 17px 14px;border-radius:12px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.5);box-shadow:0 13px 35px rgba(0,0,0,.21);isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;transition:.28s}
+.section-card:hover{transform:translateY(-7px);border-color:var(--gold2)}
+.section-card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,50,50,.10),rgba(0,45,44,.94));z-index:-1}
+.section-card:after{content:"";position:absolute;inset:0;background-image:var(--bg);background-size:cover;background-position:center;z-index:-2;filter:saturate(.78);transition:.35s}
+.section-card:hover:after{transform:scale(1.05);filter:saturate(1)}
+.section-card:nth-child(even):before{background:linear-gradient(180deg,rgba(77,61,34,.08),rgba(56,43,26,.91))}
+.index-badge{position:absolute;left:12px;top:12px;width:25px;height:25px;border-radius:50%;background:var(--gold);color:#123d3c;font-size:11px;font-weight:900;display:grid;place-items:center}
+.section-icon{width:37px;height:37px;border-radius:10px;border:1px solid rgba(255,217,140,.42);display:grid;place-items:center;color:var(--gold2);font-weight:900;margin-bottom:11px;background:rgba(0,0,0,.15)}
+.section-card h3{font-size:15px;line-height:1.45;margin:0 0 7px;font-weight:900}
+.section-card ul{font-size:10px;line-height:1.8;margin:0;padding:0 15px 0 0;color:rgba(255,255,255,.85);min-height:54px}
+.enter{align-self:center;margin-top:10px;padding:6px 22px;border-radius:18px;background:rgba(8,99,94,.88);border:1px solid rgba(255,255,255,.42);font-size:9px;font-weight:900}
 
-.brand-icon{
-  width:51px;
-  height:51px;
-  border:2px solid var(--gold);
-  border-radius:14px;
-  display:grid;
-  place-items:center;
-  font-size:28px;
-  color:var(--gold);
-}
+/* main */
+.main{max-width:1600px;margin:0 auto;padding:18px 18px 60px;display:grid;grid-template-columns:290px minmax(0,1fr) 300px;direction:ltr;gap:14px;align-items:start}
+.main>*{direction:rtl}
+.panel{background:#fff;border:1px solid #e1e8e6;border-radius:14px;box-shadow:0 5px 18px rgba(5,60,60,.04);overflow:hidden}
+.panel-inner{padding:14px}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.panel-head h2,.panel-head h3{margin:0;font-size:18px;color:#0b4747;font-weight:900}
+.pill{border:0;background:var(--deep);color:#fff;border-radius:18px;padding:6px 13px;font-size:9px;font-weight:800}
 
-.brand-title{
-  line-height:1.1;
-}
-.brand-title strong{
-  display:block;
-  font-size:23px;
-  font-weight:900;
-}
-.brand-title span{
-  color:var(--gold);
-  font-size:14px;
-  font-weight:700;
-}
+.people-list{display:grid}
+.person{display:grid;grid-template-columns:46px 1fr;gap:10px;align-items:center;padding:10px 3px;border-top:1px solid #edf1f0}
+.person:first-child{border-top:0}
+.person-mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(145deg,#eaf1ee,#dfeae7);display:grid;place-items:center;color:#0b5d59;font-weight:900;border:1px solid #d9e6e2}
+.person strong{font-size:12px;color:#183f40}.person span{display:block;color:#7a8685;font-size:9px;margin-top:2px}
 
-.navlinks{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:28px;
-  font-size:14px;
-  font-weight:700;
-  flex:1;
-}
-.navlinks a{
-  opacity:.9;
-  padding:27px 0 22px;
-  border-bottom:3px solid transparent;
-}
-.navlinks a:hover,
-.navlinks a.active{
-  color:var(--gold);
-  border-bottom-color:var(--gold);
-}
+.feed-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+.feed-head h2{margin:0;color:#0b4747;font-size:20px;font-weight:900}
+.feed-tools{display:flex;align-items:center;gap:8px}
+.feed-search{display:flex;align-items:center;border:1px solid #dfe7e5;border-radius:20px;padding:4px 10px;background:#f7faf8}
+.feed-search input{border:0;outline:0;background:transparent;width:150px;font-size:10px}
+.filters{display:flex;gap:6px;overflow:auto;scrollbar-width:none;padding-bottom:9px}.filters::-webkit-scrollbar{display:none}
+.filter{border:1px solid #dce5e3;background:#fff;color:#4c6665;border-radius:15px;padding:5px 10px;font-size:9px;white-space:nowrap}
+.filter.active{background:#e6f0ed;color:#075c58;border-color:#bad1cc}
+.articles{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.article{min-width:0;border-left:1px solid #edf1ef;padding-left:14px;transition:.2s}
+.article:first-child{border-left:0}.article:hover{transform:translateY(-3px)}
+.article-cover{height:128px;border-radius:9px;overflow:hidden;position:relative;background:#e5ece9}
+.article-cover img{width:100%;height:100%;object-fit:cover}
+.article-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.15))}
+.article-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px}
+.tag{background:var(--gold2);color:#173d3b;padding:4px 8px;border-radius:12px;font-size:8px;font-weight:900}
+.article time{font-size:8px;color:#8b9594}
+.article h3{font-size:14px;line-height:1.6;margin:7px 0;color:#153f41}
+.article p{font-size:10px;line-height:1.8;color:#7b8585;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.read{display:inline-flex;margin-top:7px;color:#07635e;font-size:9px;font-weight:900}
 
-.nav-tools{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.video-feature{height:155px;border-radius:10px;overflow:hidden;position:relative;background:#dde8e5}
+.video-feature img{width:100%;height:100%;object-fit:cover;filter:saturate(.85)}
+.play{position:absolute;inset:0;display:grid;place-items:center}
+.play span{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.92);color:#075a56;padding-left:3px;box-shadow:0 8px 25px rgba(0,0,0,.16)}
+.video-title{display:block;margin-top:8px;font-size:11px;color:#153f40;font-weight:900}
+.video-row{display:grid;grid-template-columns:74px 1fr;gap:8px;align-items:center;padding-top:9px;margin-top:9px;border-top:1px solid #edf1f0}
+.video-thumb{height:44px;border-radius:7px;overflow:hidden}
+.video-thumb img{width:100%;height:100%;object-fit:cover}
+.video-row strong{font-size:9px;line-height:1.5}
+.video-row span{display:block;font-size:8px;color:#87918f;margin-top:2px}
 
-.search-box{
-  width:230px;
-  height:42px;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:22px;
-  display:flex;
-  align-items:center;
-  padding:0 14px;
-  background:rgba(255,255,255,.04);
-}
-.search-box input{
-  width:100%;
-  border:0;
-  outline:0;
-  color:#fff;
-  background:transparent;
-}
-.search-box input::placeholder{color:#c8d5d4}
+/* archive */
+.archive{background:linear-gradient(180deg,#edf2ef,#e4ece8);padding:70px 5vw}
+.archive-head{max-width:1500px;margin:auto;display:flex;justify-content:space-between;gap:40px;align-items:flex-end;margin-bottom:28px}
+.archive-head span,.mission span{color:#0b6862;font-weight:900;font-size:12px}
+.archive-head h2,.mission h2{margin:3px 0 0;font-size:34px;color:#103f40}
+.archive-head p{max-width:620px;color:#687877;line-height:2;margin:0;font-size:13px}
+.gallery{max-width:1500px;margin:auto;display:grid;grid-template-columns:1.45fr 1fr;gap:14px}
+.gallery figure{margin:0;position:relative;overflow:hidden;border-radius:18px;min-height:380px;box-shadow:var(--shadow);background:#dce7e3}
+.gallery figure:nth-child(2){min-height:380px}
+.gallery img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.gallery figure:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(0,38,38,.72))}
+.gallery figcaption{position:absolute;z-index:2;right:22px;left:22px;bottom:20px;color:#fff}
+.gallery figcaption strong{display:block;font-size:18px}
+.gallery figcaption span{font-size:10px;color:rgba(255,255,255,.78)}
 
-.hero{
-  min-height:575px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  overflow:hidden;
-  background-position:center;
-  background-size:cover;
-}
+.mission{background:linear-gradient(110deg,#063c3d,#075652);color:#fff;padding:58px 7vw;display:flex;align-items:center;justify-content:space-between;gap:30px}
+.mission h2{color:#fff}
+.mission p{margin:10px 0 0;max-width:760px;color:rgba(255,255,255,.82);line-height:2;font-size:13px}
+.mission-btn{background:var(--gold);color:#163b39;padding:12px 22px;border-radius:24px;font-weight:900;font-size:12px;white-space:nowrap}
+.footer{background:#052e30;color:#dbe7e5;padding:45px 6vw 25px}
+.footer-row{display:flex;justify-content:space-between;gap:40px;align-items:flex-start}
+.footer h3{margin:0;color:#fff;font-size:22px}
+.footer p{font-size:11px;line-height:1.9;color:#9eb2af;max-width:620px}
+.footer-links{display:flex;flex-wrap:wrap;gap:14px;max-width:700px}
+.footer-links a{font-size:10px;color:#dce8e6}
+.copy{margin-top:28px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);font-size:9px;color:#78928e}
 
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,rgba(0,31,32,.06) 0%,rgba(0,42,42,.17) 38%,rgba(0,40,40,.92) 100%),
-    linear-gradient(0deg,rgba(0,49,47,.76),transparent 42%);
-}
-
-.hero-inner{
-  width:100%;
-  max-width:1600px;
-  margin:auto;
-  padding:70px 70px 200px;
-  position:relative;
-  z-index:2;
-}
-
-.hero-content{
-  width:min(600px,90%);
-  margin-right:auto;
-  text-align:right;
-  color:#fff;
-}
-
-.hero-kicker{
-  color:var(--gold);
-  font-weight:800;
-  letter-spacing:2px;
-  margin-bottom:8px;
-}
-
-.hero h1{
-  font-size:74px;
-  line-height:1;
-  margin:0;
-  font-weight:900;
-}
-
-.hero h1 span{
-  display:block;
-  color:var(--gold);
-  font-size:43px;
-  margin-top:14px;
-}
-
-.hero h2{
-  font-size:25px;
-  margin:25px 0 10px;
-}
-
-.hero p{
-  line-height:2;
-  font-size:17px;
-  color:#e8f2f1;
-}
-
-.hero-btn{
-  margin-top:22px;
-  border:0;
-  background:linear-gradient(90deg,var(--gold),var(--gold2));
-  color:#173535;
-  font-size:16px;
-  font-weight:900;
-  padding:14px 27px;
-  border-radius:28px;
-  box-shadow:0 7px 25px rgba(244,191,93,.28);
-}
-
-.categories-wrap{
-  position:relative;
-  z-index:5;
-  max-width:1600px;
-  padding:0 15px;
-  margin:-185px auto 0;
-}
-
-.categories{
-  display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:10px;
-}
-
-.cat{
-  min-height:220px;
-  padding:19px;
-  color:#fff;
-  border-radius:10px;
-  border:1px solid rgba(244,191,93,.72);
-  overflow:hidden;
-  position:relative;
-  background:
-    linear-gradient(0deg,rgba(0,42,42,.94),rgba(0,61,60,.64)),
-    linear-gradient(135deg,#886238,#004d4a);
-  box-shadow:0 8px 22px rgba(0,0,0,.18);
-  transition:.25s;
-}
-.cat:hover{
-  transform:translateY(-6px);
-}
-.cat-number{
-  position:absolute;
-  left:13px;
-  top:13px;
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  background:var(--gold);
-  color:#163b3b;
-  font-weight:900;
-  display:grid;
-  place-items:center;
-}
-.cat-icon{
-  font-size:32px;
-  color:var(--gold);
-  margin-bottom:9px;
-}
-.cat h3{
-  margin:2px 0 8px;
-  font-size:17px;
-}
-.cat ul{
-  margin:0;
-  padding-right:18px;
-  color:#e7eded;
-  font-size:12px;
-  line-height:1.9;
-}
-.cat-btn{
-  position:absolute;
-  bottom:13px;
-  right:18px;
-  left:18px;
-  height:32px;
-  border:0;
-  border-radius:18px;
-  background:#005c59;
-  color:#fff;
-  font-weight:800;
-}
-
-.content{
-  max-width:1600px;
-  margin:18px auto 0;
-  padding:0 15px 50px;
-  display:grid;
-  grid-template-columns:1.1fr 3fr 1.1fr;
-  gap:15px;
-}
-
-.panel{
-  background:#fff;
-  border:1px solid #e4e8e7;
-  border-radius:13px;
-  padding:17px;
-  box-shadow:0 5px 20px rgba(0,0,0,.04);
-}
-
-.panel-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:15px;
-}
-.panel-title h2{
-  margin:0;
-  font-size:21px;
-}
-.small-btn{
-  background:var(--green);
-  color:#fff;
-  border:0;
-  border-radius:17px;
-  padding:5px 14px;
-  font-weight:700;
-}
-
-.articles-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-}
-
-.article-card{
-  border-left:1px solid #e8eceb;
-  padding-left:14px;
-  cursor:pointer;
-}
-.article-card:last-child{border:0}
-.article-img{
-  height:140px;
-  width:100%;
-  object-fit:cover;
-  border-radius:8px;
-  background:#d6dfde;
-}
-.tag{
-  display:inline-block;
-  background:var(--gold);
-  color:#22393a;
-  padding:3px 11px;
-  border-radius:15px;
-  font-size:11px;
-  font-weight:800;
-  margin-top:-13px;
-  position:relative;
-  right:10px;
-}
-.article-card h3{
-  font-size:18px;
-  line-height:1.6;
-  margin:8px 0 5px;
-}
-.article-card p{
-  color:#6d787a;
-  line-height:1.8;
-  font-size:13px;
-}
-.meta{
-  color:#98a2a4;
-  font-size:11px;
-  margin-top:8px;
-}
-
-.people-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.person{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding-bottom:9px;
-  border-bottom:1px solid #edf0ef;
-}
-.person img{
-  width:48px;
-  height:48px;
-  object-fit:cover;
-  border-radius:7px;
-  background:#eee;
-}
-.person strong{
-  display:block;
-  font-size:13px;
-}
-.person span{
-  color:#7a8587;
-  font-size:11px;
-}
-
-.video-main{
-  position:relative;
-  border-radius:9px;
-  overflow:hidden;
-  background:#ddd;
-}
-.video-main img{
-  width:100%;
-  height:145px;
-  object-fit:cover;
-}
-.play{
-  position:absolute;
-  inset:0;
-  margin:auto;
-  width:47px;
-  height:47px;
-  border-radius:50%;
-  border:0;
-  background:#fff;
-  color:var(--green);
-  font-size:22px;
-}
-.video-list{
-  margin-top:11px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.video-row{
-  padding-bottom:8px;
-  border-bottom:1px solid #edf0ef;
-}
-.video-row strong{
-  display:block;
-  font-size:12px;
-}
-.video-row span{
-  font-size:10px;
-  color:#8a9495;
-}
-
-.gallery-section{
-  max-width:1600px;
-  margin:0 auto 50px;
-  padding:0 15px;
-}
-.gallery-grid{
-  display:grid;
-  grid-template-columns:2fr 1fr 1fr;
-  grid-auto-rows:240px;
-  gap:12px;
-}
-.gallery-grid img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:14px;
-}
-.gallery-grid img:first-child{
-  grid-row:span 2;
-}
-
-.footer{
-  background:#003936;
-  color:#eaf3f2;
-  padding:48px 30px 30px;
-  text-align:center;
-}
-.footer h2{
-  color:var(--gold);
-  margin:0 0 7px;
-}
-.footer p{
-  margin:4px;
-  opacity:.8;
-}
-.footer-admin{
-  margin-top:22px;
-  border:1px solid rgba(255,255,255,.25);
-  background:transparent;
-  color:#fff;
-  border-radius:22px;
-  padding:8px 18px;
-}
-
-/* Article modal */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:500;
-  background:rgba(0,0,0,.7);
-  padding:25px;
-  overflow:auto;
-}
+/* modal */
+.modal{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.72);padding:25px;overflow:auto}
 .modal.open{display:block}
-.modal-box{
-  width:min(850px,100%);
-  margin:30px auto;
-  background:#fff;
-  border-radius:18px;
-  padding:26px;
-  position:relative;
-}
-.close{
-  position:absolute;
-  left:17px;
-  top:15px;
-  width:38px;
-  height:38px;
-  border:0;
-  border-radius:50%;
-  background:#f0f2f1;
-  font-size:20px;
-}
-.modal-box img{
-  width:100%;
-  max-height:420px;
-  object-fit:cover;
-  border-radius:14px;
-}
-.modal-box h1{
-  font-size:30px;
-  line-height:1.5;
-}
-.article-body{
-  line-height:2.2;
-  font-size:16px;
-}
+.modal-card{width:min(860px,100%);margin:35px auto;background:#fff;border-radius:22px;overflow:hidden;position:relative;box-shadow:0 25px 80px rgba(0,0,0,.28)}
+.modal-close{position:absolute;left:16px;top:16px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.94);font-size:20px}
+.modal-cover{height:360px;background:#e4ebe8}
+.modal-cover img{width:100%;height:100%;object-fit:cover}
+.modal-body{padding:26px}
+.modal-body h1{font-size:30px;line-height:1.5;margin:8px 0}
+.modal-body p{line-height:2.2;color:#4f6060;font-size:14px;white-space:pre-line}
 
-/* Admin */
-.admin-overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:1000;
-  background:#f1f4f3;
-  overflow:auto;
-}
+/* admin */
+.admin-overlay{display:none;position:fixed;inset:0;z-index:1000;background:#eff4f1;overflow:auto}
 .admin-overlay.open{display:block}
-
-.admin-head{
-  background:var(--green);
-  color:#fff;
-  padding:18px 25px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:sticky;
-  top:0;
-  z-index:2;
-}
-.admin-head h2{margin:0}
-.admin-head button{
-  border:0;
-  padding:9px 16px;
-  border-radius:8px;
-  background:#fff;
-  color:var(--green);
-  font-weight:800;
-}
-
-.admin-main{
-  max-width:1200px;
-  margin:25px auto;
-  padding:0 15px;
-}
-
-.login-box{
-  width:min(440px,95%);
-  margin:100px auto;
-  background:#fff;
-  border-radius:18px;
-  padding:30px;
-  box-shadow:var(--shadow);
-}
-.login-box h2{text-align:center}
-.field{
-  margin-bottom:14px;
-}
-.field label{
-  display:block;
-  font-weight:800;
-  margin-bottom:5px;
-}
-.field input,
-.field textarea,
-.field select{
-  width:100%;
-  border:1px solid #dce2e1;
-  border-radius:9px;
-  padding:11px 13px;
-  outline:0;
-  background:#fff;
-}
-.field textarea{
-  min-height:120px;
-  resize:vertical;
-}
-
-.primary{
-  border:0;
-  background:var(--green);
-  color:#fff;
-  padding:11px 18px;
-  border-radius:9px;
-  font-weight:800;
-}
-.danger{
-  border:0;
-  background:#a83636;
-  color:#fff;
-  padding:7px 12px;
-  border-radius:7px;
-}
-.edit{
-  border:0;
-  background:#e7b34f;
-  color:#143b3a;
-  padding:7px 12px;
-  border-radius:7px;
-  font-weight:800;
-}
-
-.admin-tabs{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-bottom:18px;
-}
-.admin-tabs button{
-  border:1px solid #d7dfdd;
-  background:#fff;
-  border-radius:20px;
-  padding:8px 18px;
-  font-weight:800;
-}
-.admin-tabs button.active{
-  background:var(--green);
-  color:#fff;
-}
-
-.admin-section{
-  display:none;
-  background:#fff;
-  border-radius:15px;
-  padding:20px;
-  box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
+.login{width:min(430px,94%);margin:11vh auto;background:#fff;padding:30px;border-radius:20px;box-shadow:var(--shadow)}
+.login h2{text-align:center;color:#0b4c4a}
+.field{margin-bottom:13px}
+.field label{display:block;margin-bottom:5px;font-size:11px;font-weight:900}
+.field input,.field textarea,.field select{width:100%;border:1px solid #d9e3e0;border-radius:10px;padding:11px 12px;outline:0;background:#fff}
+.field textarea{min-height:105px;resize:vertical}
+.primary{border:0;background:var(--deep);color:#fff;border-radius:10px;padding:10px 17px;font-weight:900}
+.secondary{border:0;background:#e8eeeb;color:#254443;border-radius:10px;padding:10px 17px;font-weight:900}
+.danger{border:0;background:#a93e3e;color:#fff;border-radius:8px;padding:7px 10px;font-size:10px}
+.edit{border:0;background:var(--gold);color:#173d3c;border-radius:8px;padding:7px 10px;font-size:10px;font-weight:900}
+.admin-top{position:sticky;top:0;z-index:3;background:var(--deep);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center}
+.admin-top h2{margin:0;font-size:18px}
+.admin-main{max-width:1200px;margin:24px auto;padding:0 14px 60px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{border:1px solid #d8e2df;background:#fff;border-radius:18px;padding:7px 14px;font-size:10px;font-weight:900}
+.tabs button.active{background:var(--deep);color:#fff}
+.admin-section{display:none;background:#fff;border-radius:16px;padding:20px;box-shadow:0 6px 22px rgba(5,60,60,.05)}
 .admin-section.active{display:block}
-
-.admin-grid{
-  display:grid;
-  grid-template-columns:1fr 1.3fr;
-  gap:22px;
-}
-.admin-list-item{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding:10px 0;
-  border-bottom:1px solid #ecefee;
-}
-.admin-actions{
-  display:flex;
-  gap:6px;
-  align-items:center;
-}
-
-.empty{
-  text-align:center;
-  padding:35px;
-  color:#879192;
-}
-
-.mobile-menu{
-  display:none;
-}
+.admin-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:22px}
+.list-item{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #edf1ef}
+.list-item strong{font-size:11px}
+.list-item small{display:block;color:#82908d;font-size:9px}
+.actions{display:flex;gap:6px;align-items:center}
 
 @media(max-width:1200px){
-  .categories{
-    grid-template-columns:repeat(4,1fr);
-  }
-  .categories-wrap{margin:-110px auto 0}
-  .hero-inner{padding-bottom:140px}
-  .content{
-    grid-template-columns:1fr 2fr;
-  }
-  .people-panel{grid-column:1/3}
-  .navlinks{display:none}
+  .header{grid-template-columns:230px 1fr 230px;padding:0 18px}
+  .nav{gap:13px}
+  .nav a{font-size:11px}
+  .search{width:160px}
+  .hero-copy{width:min(610px,55vw)}
+  .section-rail{grid-template-columns:repeat(4,1fr);bottom:15px}
+  .hero{min-height:940px}
+  .dots{bottom:450px}
+  .main{grid-template-columns:260px minmax(0,1fr)}
+  .videos-panel{grid-column:1/3}
+  .articles{grid-template-columns:repeat(2,1fr)}
 }
-
 @media(max-width:760px){
-  .topbar{height:auto;padding:12px 14px}
-  .brand{min-width:0}
-  .brand-title strong{font-size:17px}
-  .brand-title span{font-size:11px}
-  .brand-icon{width:42px;height:42px}
-  .search-box{display:none}
-  .hero{min-height:580px}
-  .hero-inner{
-    padding:65px 20px 240px;
-  }
-  .hero-content{
-    width:100%;
-  }
-  .hero h1{font-size:48px}
-  .hero h1 span{font-size:30px}
-  .hero h2{font-size:20px}
+  .header{min-height:70px;height:auto;padding:11px 16px;grid-template-columns:1fr auto}
+  .brand-mark{width:44px;height:44px}
+  .brand strong{font-size:18px}
+  .brand small{font-size:11px}
+  .header-actions{display:none}
+  .menu-btn{display:block}
+  .nav{position:absolute;top:70px;right:12px;left:12px;height:auto;background:rgba(4,61,60,.98);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px;display:none;flex-direction:column;gap:0;box-shadow:0 20px 45px rgba(0,0,0,.18)}
+  .header.open .nav{display:flex}
+  .nav a{height:42px;padding:0 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav a:after{display:none}
+  .hero{padding-top:70px;min-height:1020px}
+  .hero-copy{width:auto;margin:0;padding:75px 24px 0;text-align:right}
+  .hero h1{font-size:58px}
+  .hero h1 span{font-size:31px}
+  .hero h2{font-size:21px}
   .hero p{font-size:14px}
-  .categories-wrap{
-    margin:-210px auto 0;
-  }
-  .categories{
-    display:flex;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-  }
-  .cat{
-    min-width:260px;
-    scroll-snap-align:start;
-  }
-  .content{
-    grid-template-columns:1fr;
-  }
-  .people-panel{grid-column:auto}
-  .articles-grid{
-    grid-template-columns:1fr;
-  }
-  .article-card{
-    border:0;
-    border-bottom:1px solid #e8eceb;
-    padding-bottom:15px;
-  }
-  .gallery-grid{
-    grid-template-columns:1fr 1fr;
-    grid-auto-rows:170px;
-  }
-  .gallery-grid img:first-child{
-    grid-column:1/3;
-    grid-row:auto;
-  }
-  .admin-grid{
-    grid-template-columns:1fr;
-  }
+  .hero-overlay{background:linear-gradient(180deg,rgba(2,50,50,.42) 0%,rgba(2,50,50,.78) 57%,rgba(2,45,45,.96) 100%)}
+  .hero-arrows{display:none}
+  .dots{bottom:510px;right:calc(50% - 12px)}
+  .section-rail{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;right:14px;left:14px;bottom:18px;padding-bottom:4px;scrollbar-width:none}
+  .section-rail::-webkit-scrollbar{display:none}
+  .section-card{min-width:250px;min-height:235px;scroll-snap-align:start}
+  .section-card h3{font-size:17px}
+  .section-card ul{font-size:11px}
+  .main{grid-template-columns:1fr;padding:14px 12px 45px}
+  .people-panel,.videos-panel{grid-column:auto}
+  .articles{grid-template-columns:1fr}
+  .article{border-left:0;border-bottom:1px solid #edf1ef;padding:0 0 14px}
+  .article-cover{height:180px}
+  .feed-head{align-items:flex-start;flex-direction:column}
+  .feed-tools{width:100%}
+  .feed-search{flex:1}
+  .feed-search input{width:100%}
+  .gallery{grid-template-columns:1fr}
+  .gallery figure,.gallery figure:nth-child(2){min-height:290px}
+  .archive{padding:52px 14px}
+  .archive-head{flex-direction:column;align-items:flex-start;gap:12px}
+  .archive-head h2{font-size:28px}
+  .mission{padding:42px 18px;flex-direction:column;align-items:flex-start}
+  .mission h2{font-size:28px}
+  .footer{padding:38px 18px 22px}
+  .footer-row{flex-direction:column}
+  .modal-cover{height:240px}
+  .modal-body h1{font-size:23px}
+  .admin-grid{grid-template-columns:1fr}
 }
-
 </style>
 </head>
-
 <body>
-
-<header class="topbar">
-  <div class="nav">
-
-    <div class="brand">
-      <div class="brand-icon">⌂</div>
-      <div class="brand-title">
-        <strong>بوتلميت</strong>
-        <span>هوية ومسار</span>
-      </div>
-    </div>
-
-    <nav class="navlinks">
-      <a class="active" href="#home">الرئيسية</a>
-      <a href="#about">عن الموقع</a>
-      <a href="#articles">المقالات</a>
-      <a href="#gallery">الصور والوثائق</a>
-      <a href="#videos">الفيديوهات</a>
-      <a href="#contact">تواصل معنا</a>
-    </nav>
-
-    <div class="nav-tools">
-      <div class="search-box">
-        🔎
-        <input id="searchInput" placeholder="ابحث في الموقع...">
-      </div>
-    </div>
-
+<header class="header" id="header">
+  <a class="brand" href="#home">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span><strong>بوتلميت</strong><small>هوية ومسار</small></span>
+  </a>
+  <nav class="nav" id="nav">
+    <a class="active" href="#home">الرئيسية</a>
+    <a href="#about">عن الموقع</a>
+    <a href="#latest">المقالات</a>
+    <a href="#archive">الصور والوثائق</a>
+    <a href="#videos">الفيديوهات</a>
+    <a href="#footer">تواصل معنا</a>
+  </nav>
+  <div class="header-actions">
+    <label class="search"><span>⌕</span><input id="headerSearch" type="search" placeholder="ابحث في الموقع..."></label>
+    <button class="admin-mini" onclick="openAdmin()">لوحة التحكم</button>
   </div>
+  <button class="menu-btn" id="menuBtn" aria-label="القائمة">☰</button>
 </header>
 
+<main>
 <section class="hero" id="home">
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-kicker">ذاكرة مدينة ومسار وطن</div>
-      <h1>
-        بوتلميت
-        <span id="heroSecondTitle">هوية ومسار</span>
-      </h1>
-
-      <h2 id="heroHeading">مدينة العلم والتاريخ والثقافة</h2>
-
-      <p id="heroText">
-        نافذة معرفية توثق تاريخ بوتلميت، وتبرز حاضرها،
-        وتستشرف مستقبلها في مسار يجمع بين الأصالة والتنمية.
-      </p>
-
-      <button class="hero-btn" onclick="document.getElementById('articles').scrollIntoView()">
-        استكشف المزيد ←
-      </button>
-    </div>
+  <div class="hero-slide active" style="background-image:url('boutilimit-1.jpg')"></div>
+  <div class="hero-slide" style="background-image:url('boutilimit-2.jpg')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-arrows">
+    <button class="prev" onclick="changeHero(-1)">›</button>
+    <button class="next" onclick="changeHero(1)">‹</button>
   </div>
+  <div class="hero-copy" id="about">
+    <div class="kicker">ذاكرة مدينة ومسار وطن</div>
+    <h1>بوتلميت<span>هوية ومسار</span></h1>
+    <h2 id="heroHeading">مدينة العلم والتاريخ والثقافة</h2>
+    <p id="heroText">نافذة معرفية توثق تاريخ بوتلميت، وتبرز حاضرها وتستشرف مستقبلها في مسار يجمع بين الأصالة والتنمية.</p>
+    <a class="hero-cta" href="#latest">استكشف المزيد <span>←</span></a>
+  </div>
+  <div class="dots">
+    <button class="active" onclick="showHero(0)"></button>
+    <button onclick="showHero(1)"></button>
+  </div>
+  <div class="section-rail" id="sections"></div>
 </section>
 
-<div class="categories-wrap">
-  <div class="categories">
-
-    <article class="cat">
-      <span class="cat-number">1</span>
-      <div class="cat-icon">🏛</div>
-      <h3>التاريخ والذاكرة</h3>
-      <ul>
-        <li>نشأة المدينة</li>
-        <li>مسارها عبر القرون</li>
-        <li>أعلام بوتلميت</li>
-      </ul>
-      <button class="cat-btn" onclick="filterCategory('التاريخ والذاكرة')">دخول ←</button>
-    </article>
-
-    <article class="cat">
-      <span class="cat-number">2</span>
-      <div class="cat-icon">📖</div>
-      <h3>الحياة الثقافية</h3>
-      <ul>
-        <li>المحاظر ودورها</li>
-        <li>الشعراء والكتاب</li>
-        <li>المخطوطات والنوادر</li>
-      </ul>
-      <button class="cat-btn" onclick="filterCategory('الحياة الثقافية')">دخول ←</button>
-    </article>
-
-    <article class="cat">
-      <span class="cat-number">3</span>
-      <div class="cat-icon">👥</div>
-      <h3>المجتمع والتحولات</h3>
-      <ul>
-        <li>العادات والتقاليد</li>
-        <li>التحولات الاجتماعية</li>
-        <li>شهادات الأهالي</li>
-      </ul>
-      <button class="cat-btn" onclick="filterCategory('المجتمع والتحولات')">دخول ←</button>
-    </article>
-
-    <article class="cat">
-      <span class="cat-number">4</span>
-      <div class="cat-icon">🇲🇷</div>
-      <h3>السياسة والمسار الوطني</h3>
-      <ul>
-        <li>دور بوتلميت الوطني</li>
-        <li>الشخصيات الوطنية</li>
-        <li>الوحدة الوطنية</li>
-      </ul>
-      <button class="cat-btn" onclick="filterCategory('السياسة والمسار الوطني')">دخول ←</button>
-    </article>
-
-    <article class="cat">
-      <span class="cat-number">5</span>
-      <div class="cat-icon">⚙️</div>
-      <h3>التنمية والواقع المعاصر</h3>
-      <ul>
-        <li>التعليم والصحة</li>
-        <li>الشباب والبطالة</li>
-        <li>الاستثمار والمشاريع</li>
-      </ul>
-      <button class="cat-btn" onclick="filterCategory('التنمية والواقع المعاصر')">دخول ←</button>
-    </article>
-
-    <article class="cat">
-      <span class="cat-number">6</span>
-      <div class="cat-icon">💡</div>
-      <h3>الحلول والرؤى المستقبلية</h3>
-      <ul>
-        <li>مقترحات تنموية</li>
-        <li>مشاريع قابلة للتنفيذ</li>
-        <li>مستقبل المدينة</li>
-      </ul>
-      <button class="cat-btn" onclick="filterCategory('الحلول والرؤى المستقبلية')">دخول ←</button>
-    </article>
-
-    <article class="cat">
-      <span class="cat-number">7</span>
-      <div class="cat-icon">🖼</div>
-      <h3>الصور والوثائق</h3>
-      <ul>
-        <li>صور قديمة وحديثة</li>
-        <li>خرائط ووثائق</li>
-        <li>شهادات ومقتنيات</li>
-      </ul>
-      <button class="cat-btn" onclick="document.getElementById('gallery').scrollIntoView()">دخول ←</button>
-    </article>
-
-  </div>
-</div>
-
-<main class="content" id="articles">
-
-  <section class="panel video-panel" id="videos">
-    <div class="panel-title">
-      <h2>أحدث الفيديوهات</h2>
+<section class="main" id="latest">
+  <aside class="panel people-panel">
+    <div class="panel-inner">
+      <div class="panel-head">
+        <h3>أعلام بوتلميت</h3>
+        <button class="pill">عرض الكل</button>
+      </div>
+      <div class="people-list" id="peopleList"></div>
     </div>
-    <div id="videosBox"></div>
-  </section>
+  </aside>
 
   <section class="panel">
-    <div class="panel-title">
-      <h2 id="articlesTitle">أحدث المقالات</h2>
-      <button class="small-btn" onclick="renderArticles()">عرض الكل</button>
+    <div class="panel-inner">
+      <div class="feed-head">
+        <h2 id="articlesHeading">أحدث المقالات</h2>
+        <div class="feed-tools">
+          <button class="pill" onclick="resetFilter()">عرض الكل</button>
+          <label class="feed-search">
+            <input id="articleSearch" type="search" placeholder="بحث في المواد">
+            <span>⌕</span>
+          </label>
+        </div>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="articles" id="articles"></div>
     </div>
-
-    <div class="articles-grid" id="articlesGrid"></div>
   </section>
 
-  <section class="panel people-panel">
-    <div class="panel-title">
-      <h2>أبرز الشخصيات</h2>
+  <aside class="panel videos-panel" id="videos">
+    <div class="panel-inner">
+      <div class="panel-head">
+        <h3>أحدث الفيديوهات</h3>
+        <button class="pill">عرض الكل</button>
+      </div>
+      <div id="videoList"></div>
     </div>
-    <div class="people-list" id="peopleList"></div>
-  </section>
+  </aside>
+</section>
 
-</main>
-
-<section class="gallery-section" id="gallery">
-  <div class="panel">
-    <div class="panel-title">
+<section class="archive" id="archive">
+  <div class="archive-head">
+    <div>
+      <span>الأرشيف البصري</span>
       <h2>الصور والوثائق</h2>
     </div>
-
-    <div class="gallery-grid" id="galleryGrid">
-      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200" alt="">
-      <img src="https://images.unsplash.com/photo-1489493512598-d08130f49bea?w=700" alt="">
-      <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?w=700" alt="">
-      <img src="https://images.unsplash.com/photo-1452421822248-d4c2b47f0c81?w=700" alt="">
-      <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=700" alt="">
-    </div>
+    <p>صور حقيقية من مدينة بوتلميت تحفظ مشهدها العمراني وملامحها البصرية، مع مساحة قابلة للتوسع للوثائق والشهادات والمقتنيات التاريخية.</p>
+  </div>
+  <div class="gallery">
+    <figure>
+      <img src="boutilimit-1.jpg" alt="منظر جوي لمدينة بوتلميت">
+      <figcaption>
+        <strong>بوتلميت من الأعلى</strong>
+        <span>مشهد بانورامي للمدينة</span>
+      </figcaption>
+    </figure>
+    <figure>
+      <img src="boutilimit-2.jpg" alt="منظر جوي آخر لمدينة بوتلميت">
+      <figcaption>
+        <strong>ملامح المدينة</strong>
+        <span>صورة من أرشيف بوتلميت… هوية ومسار</span>
+      </figcaption>
+    </figure>
   </div>
 </section>
 
-<footer class="footer" id="contact">
-  <h2>بوتلميت… هوية ومسار</h2>
-  <p>مشروع رقمي لتوثيق ذاكرة المدينة ومسارها العلمي والثقافي والاجتماعي.</p>
-  <p>جميع الحقوق محفوظة © 2026</p>
+<section class="mission">
+  <div>
+    <span>ذاكرة المدينة ومستقبلها</span>
+    <h2>محتوى يتجدد… وهوية تُحفظ</h2>
+    <p>صُمم الموقع ليكون أرشيفًا رقميًا متجددًا لبوتلميت، يجمع التاريخ والثقافة والمجتمع والتنمية والرؤى المستقبلية في مكان واحد مرتب وواضح.</p>
+  </div>
+  <button class="mission-btn" onclick="openAdmin()">الدخول إلى لوحة التحكم ←</button>
+</section>
+</main>
 
-  <button class="footer-admin" onclick="openAdmin()">
-    لوحة التحكم
-  </button>
+<footer class="footer" id="footer">
+  <div class="footer-row">
+    <div>
+      <h3>بوتلميت… هوية ومسار</h3>
+      <p>منصة رقمية توثيقية تسعى إلى حفظ ذاكرة المدينة وإبراز إرثها العلمي والثقافي والاجتماعي وفتح مساحة لرؤى مستقبلها.</p>
+    </div>
+    <div class="footer-links" id="footerLinks"></div>
+  </div>
+  <div class="copy">جميع الحقوق محفوظة © <span id="year"></span> — بوتلميت… هوية ومسار</div>
 </footer>
 
-<!-- Article modal -->
 <div class="modal" id="articleModal">
-  <div class="modal-box">
-    <button class="close" onclick="closeArticle()">×</button>
-    <div id="articleModalContent"></div>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeArticle()">×</button>
+    <div class="modal-cover"><img id="modalImage" src="boutilimit-1.jpg" alt=""></div>
+    <div class="modal-body">
+      <span class="tag" id="modalTag"></span>
+      <h1 id="modalTitle"></h1>
+      <small id="modalDate"></small>
+      <p id="modalBody"></p>
+    </div>
   </div>
 </div>
 
-<!-- Admin -->
 <div class="admin-overlay" id="adminOverlay">
-
-  <div id="loginView" class="login-box">
+  <div class="login" id="loginView">
     <h2>لوحة تحكم بوتلميت</h2>
-
     <div class="field">
       <label>كلمة المرور</label>
-      <input type="password" id="adminPasswordInput" placeholder="أدخل كلمة المرور">
+      <input type="password" id="password" placeholder="أدخل كلمة المرور">
     </div>
-
-    <button class="primary" style="width:100%" onclick="adminLogin()">
-      دخول
-    </button>
-
-    <button style="width:100%;margin-top:10px;border:0;background:#eee;padding:10px;border-radius:8px"
-      onclick="closeAdmin()">
-      رجوع للموقع
-    </button>
+    <button class="primary" style="width:100%" onclick="loginAdmin()">دخول</button>
+    <button class="secondary" style="width:100%;margin-top:8px" onclick="closeAdmin()">رجوع للموقع</button>
+    <p style="font-size:9px;color:#82908d;line-height:1.8;margin:14px 0 0">
+      ملاحظة: هذه النسخة تحفظ التعديلات في المتصفح الحالي. عند ربط الموقع بقاعدة البيانات تصبح التعديلات دائمة على جميع الأجهزة.
+    </p>
   </div>
 
-  <div id="dashboardView" style="display:none">
-
-    <div class="admin-head">
+  <div id="dashboard" style="display:none">
+    <div class="admin-top">
       <h2>لوحة التحكم</h2>
-      <button onclick="closeAdmin()">عرض الموقع</button>
+      <button class="secondary" onclick="closeAdmin()">عرض الموقع</button>
     </div>
 
     <div class="admin-main">
-
-      <div class="admin-tabs">
-        <button class="active" onclick="openAdminTab('articlesAdmin',this)">المقالات</button>
-        <button onclick="openAdminTab('videosAdmin',this)">الفيديوهات</button>
-        <button onclick="openAdminTab('peopleAdmin',this)">الشخصيات</button>
-        <button onclick="openAdminTab('settingsAdmin',this)">إعدادات الموقع</button>
+      <div class="tabs">
+        <button class="active" onclick="tab('articlesAdmin',this)">المقالات</button>
+        <button onclick="tab('videosAdmin',this)">الفيديوهات</button>
+        <button onclick="tab('peopleAdmin',this)">الشخصيات</button>
+        <button onclick="tab('settingsAdmin',this)">الإعدادات</button>
       </div>
 
-      <!-- Articles -->
       <section class="admin-section active" id="articlesAdmin">
-
         <div class="admin-grid">
-
           <div>
             <h3>إضافة أو تعديل مقال</h3>
-
-            <input type="hidden" id="articleId">
-
-            <div class="field">
-              <label>عنوان المقال</label>
-              <input id="articleTitleInput">
-            </div>
-
-            <div class="field">
-              <label>القسم</label>
-              <select id="articleCategoryInput">
-                <option>التاريخ والذاكرة</option>
-                <option>الحياة الثقافية</option>
-                <option>المجتمع والتحولات</option>
-                <option>السياسة والمسار الوطني</option>
-                <option>التنمية والواقع المعاصر</option>
-                <option>الحلول والرؤى المستقبلية</option>
-                <option>الصور والوثائق</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label>ملخص المقال</label>
-              <textarea id="articleExcerptInput"></textarea>
-            </div>
-
-            <div class="field">
-              <label>نص المقال كاملا</label>
-              <textarea id="articleBodyInput" style="min-height:220px"></textarea>
-            </div>
-
-            <div class="field">
-              <label>رابط صورة الغلاف</label>
-              <input id="articleImageInput" placeholder="https://...">
-            </div>
-
-            <div class="field">
-              <label>أو اختر صورة من جهازك</label>
-              <input type="file" id="articleImageFile" accept="image/*">
-            </div>
-
-            <button class="primary" onclick="saveArticle()">
-              حفظ المقال
-            </button>
-
-            <button onclick="resetArticleForm()"
-              style="border:0;background:#e8eceb;padding:11px 18px;border-radius:9px">
-              مقال جديد
-            </button>
-
-          </div>
-
-          <div>
-            <h3>المقالات الموجودة</h3>
-            <div id="adminArticlesList"></div>
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- Videos -->
-      <section class="admin-section" id="videosAdmin">
-        <div class="admin-grid">
-
-          <div>
-            <h3>إضافة فيديو</h3>
-
-            <div class="field">
-              <label>عنوان الفيديو</label>
-              <input id="videoTitleInput">
-            </div>
-
-            <div class="field">
-              <label>رابط الفيديو</label>
-              <input id="videoUrlInput" placeholder="https://youtube.com/...">
-            </div>
-
-            <div class="field">
-              <label>صورة الفيديو</label>
-              <input id="videoImageInput" placeholder="https://...">
-            </div>
-
-            <button class="primary" onclick="addVideo()">إضافة الفيديو</button>
-          </div>
-
-          <div>
-            <h3>الفيديوهات</h3>
-            <div id="adminVideosList"></div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- People -->
-      <section class="admin-section" id="peopleAdmin">
-        <div class="admin-grid">
-
-          <div>
-            <h3>إضافة شخصية</h3>
-
-            <div class="field">
-              <label>الاسم</label>
-              <input id="personNameInput">
-            </div>
-
-            <div class="field">
-              <label>الصفة</label>
-              <input id="personRoleInput">
-            </div>
-
+            <input type="hidden" id="aId">
+            <div class="field"><label>عنوان المقال</label><input id="aTitle"></div>
+            <div class="field"><label>القسم</label><select id="aSection"></select></div>
+            <div class="field"><label>الملخص</label><textarea id="aExcerpt"></textarea></div>
+            <div class="field"><label>النص الكامل</label><textarea id="aBody" style="min-height:190px"></textarea></div>
             <div class="field">
               <label>الصورة</label>
-              <input id="personImageInput" placeholder="https://...">
+              <select id="aImage">
+                <option value="boutilimit-1.jpg">صورة بوتلميت 1</option>
+                <option value="boutilimit-2.jpg">صورة بوتلميت 2</option>
+              </select>
             </div>
-
-            <button class="primary" onclick="addPerson()">إضافة الشخصية</button>
+            <button class="primary" onclick="saveArticle()">حفظ المقال</button>
+            <button class="secondary" onclick="clearArticle()">مقال جديد</button>
           </div>
-
           <div>
-            <h3>الشخصيات</h3>
-            <div id="adminPeopleList"></div>
+            <h3>المقالات الموجودة</h3>
+            <div id="adminArticles"></div>
           </div>
-
         </div>
       </section>
 
-      <!-- Settings -->
+      <section class="admin-section" id="videosAdmin">
+        <div class="admin-grid">
+          <div>
+            <h3>إضافة فيديو</h3>
+            <div class="field"><label>عنوان الفيديو</label><input id="vTitle"></div>
+            <div class="field"><label>رابط الفيديو</label><input id="vUrl" placeholder="https://youtube.com/..."></div>
+            <div class="field">
+              <label>صورة العرض</label>
+              <select id="vImage">
+                <option value="boutilimit-1.jpg">صورة بوتلميت 1</option>
+                <option value="boutilimit-2.jpg">صورة بوتلميت 2</option>
+              </select>
+            </div>
+            <button class="primary" onclick="addVideo()">إضافة الفيديو</button>
+          </div>
+          <div>
+            <h3>الفيديوهات</h3>
+            <div id="adminVideos"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-section" id="peopleAdmin">
+        <div class="admin-grid">
+          <div>
+            <h3>إضافة شخصية أو فئة</h3>
+            <div class="field"><label>الاسم</label><input id="pName"></div>
+            <div class="field"><label>الصفة</label><input id="pRole"></div>
+            <button class="primary" onclick="addPerson()">إضافة</button>
+          </div>
+          <div>
+            <h3>القائمة الحالية</h3>
+            <div id="adminPeople"></div>
+          </div>
+        </div>
+      </section>
+
       <section class="admin-section" id="settingsAdmin">
-
         <h3>إعدادات الواجهة</h3>
-
-        <div class="field">
-          <label>عنوان الواجهة</label>
-          <input id="settingHeading">
-        </div>
-
-        <div class="field">
-          <label>وصف الواجهة</label>
-          <textarea id="settingDescription"></textarea>
-        </div>
-
-        <div class="field">
-          <label>رابط صورة مدينة بوتلميت في الواجهة</label>
-          <input id="settingHeroImage" placeholder="https://...">
-        </div>
-
-        <div class="field">
-          <label>أو اختر صورة من الجهاز</label>
-          <input type="file" id="settingHeroFile" accept="image/*">
-        </div>
-
+        <div class="field"><label>العنوان الفرعي</label><input id="sHeading"></div>
+        <div class="field"><label>وصف الموقع</label><textarea id="sText"></textarea></div>
         <button class="primary" onclick="saveSettings()">حفظ الإعدادات</button>
-
-        <hr style="margin:30px 0;border:0;border-top:1px solid #ddd">
-
+        <hr style="border:0;border-top:1px solid #e5ebe9;margin:25px 0">
         <h3>نسخة احتياطية</h3>
-
-        <button class="primary" onclick="exportData()">
-          تنزيل نسخة من المحتوى
-        </button>
-
-        <label class="primary" style="display:inline-block">
-          استعادة نسخة
-          <input type="file" id="importDataFile" accept=".json" hidden onchange="importData(event)">
-        </label>
-
+        <button class="primary" onclick="exportData()">تنزيل نسخة المحتوى</button>
       </section>
-
     </div>
   </div>
 </div>
 
 <script>
+const SECTIONS=[
+  {id:'history',title:'التاريخ والذاكرة',icon:'01',branches:['توثيق نشأة المدينة ومسارها عبر القرون','أعلام بوتلميت: العلماء والقضاة والأدباء والرواد']},
+  {id:'culture',title:'الحياة الثقافية',icon:'02',branches:['المحاظر ودورها في صناعة الهوية العلمية','الشعراء والكتاب والمخطوطات والنوادر الأدبية','الفعاليات الثقافية والملتقيات والأنشطة الفكرية']},
+  {id:'society',title:'المجتمع والتحولات',icon:'03',branches:['العادات والتقاليد والزيارات والوفود','التحولات الاجتماعية خلال القرن الأخير','قصص من ذاكرة الأهالي وشهادات كبار السن']},
+  {id:'national',title:'السياسة والمسار الوطني',icon:'04',branches:['دور بوتلميت في بناء الدولة الموريتانية','الشخصيات الوطنية المنحدرة من المدينة','علاقة المدينة بالوحدة الوطنية والتعايش']},
+  {id:'development',title:'التنمية والواقع المعاصر',icon:'05',branches:['مشاكل التعليم والصحة والبنى التحتية','واقع الشباب والبطالة والهجرة الداخلية','ضعف الاستثمار وغياب المشاريع الزراعية والصناعية']},
+  {id:'future',title:'الحلول والرؤى المستقبلية',icon:'06',branches:['مقترحات عملية لتنمية المدينة','مشاريع تعليمية وثقافية واقتصادية قابلة للتنفيذ','رؤى مستلهمة من رسالة الزاوية ودورها الاجتماعي']},
+  {id:'archive',title:'الصور والوثائق',icon:'07',branches:['صور قديمة وحديثة للمدينة','خرائط ووثائق وشهادات ومقتنيات تاريخية']}
+];
 
-/* ==========================
-   البيانات الافتراضية
-========================== */
-
-const DEFAULT_DATA = {
-
+const DEFAULT={
   settings:{
-    heading:"مدينة العلم والتاريخ والثقافة",
-    description:"نافذة معرفية توثق تاريخ بوتلميت، وتبرز حاضرها، وتستشرف مستقبلها في مسار يجمع بين الأصالة والتنمية.",
-    heroImage:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=2000"
+    heading:'مدينة العلم والتاريخ والثقافة',
+    text:'نافذة معرفية توثق تاريخ بوتلميت، وتبرز حاضرها وتستشرف مستقبلها في مسار يجمع بين الأصالة والتنمية.'
   },
-
   articles:[
     {
       id:1,
-      title:"نشأة بوتلميت ومسارها عبر القرون",
-      category:"التاريخ والذاكرة",
-      excerpt:"تعد مدينة بوتلميت من المدن الموريتانية ذات الحضور العلمي والتاريخي البارز.",
-      body:"تحتل بوتلميت مكانة بارزة في الذاكرة الموريتانية، بما عرفته من حركة علمية وثقافية، وبما احتضنته من محاظر وعلماء وشخصيات كان لها حضور في تاريخ البلاد.\n\nيهدف هذا الركن إلى جمع الروايات والوثائق والمصادر المتعلقة بتاريخ المدينة، وتقديمها بصورة موثقة ومنظمة للأجيال القادمة.",
-      image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900",
-      date:"2026-09-30"
+      title:'بوتلميت… مدينة تحفظ الذاكرة وتكتب المستقبل',
+      section:'history',
+      excerpt:'مدخل إلى المشروع الرقمي الذي يجمع تاريخ المدينة وذاكرتها الثقافية والاجتماعية في مكان واحد.',
+      body:'بوتلميت مدينة ذات حضور علمي وثقافي بارز في الذاكرة الموريتانية. يهدف هذا الموقع إلى جمع مواد موثقة عن تاريخها وأعلامها ومحاظرها وحياتها الاجتماعية وتحولاتها التنموية، وتقديمها في صورة رقمية مرتبة وقابلة للتوسع.\n\nهذا النص تجريبي ويمكن استبداله من لوحة التحكم بمادة موثقة كاملة.',
+      image:'boutilimit-1.jpg',
+      date:'2026-09-30'
     },
     {
       id:2,
-      title:"المحاظر في بوتلميت ودورها في الهوية العلمية",
-      category:"الحياة الثقافية",
-      excerpt:"كانت المحاظر من أهم المنارات العلمية التي أسهمت في تخريج أجيال من العلماء والفقهاء.",
-      body:"شكّلت المحاظر في بوتلميت أحد أبرز روافد التعليم التقليدي في موريتانيا، وأسهمت في حفظ العلوم الشرعية والعربية ونقلها بين الأجيال.\n\nوسيعمل الموقع على توثيق تاريخ هذه المحاظر وشيوخها ومناهجها العلمية.",
-      image:"https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900",
-      date:"2026-09-29"
+      title:'المحاظر في بوتلميت ودورها في صناعة الهوية العلمية',
+      section:'culture',
+      excerpt:'توثيق للدور الذي لعبته المحاظر في حفظ العلوم وتكوين أجيال من العلماء والفقهاء والأدباء.',
+      body:'شكّلت المحاظر في بوتلميت إحدى أهم المؤسسات العلمية التي حافظت على العلوم الشرعية والعربية ونقلتها بين الأجيال. يخصص هذا الركن مساحة لتوثيق المحاظر وشيوخها ومناهجها وآثارها العلمية.',
+      image:'boutilimit-2.jpg',
+      date:'2026-09-29'
     },
     {
       id:3,
-      title:"واقع التعليم في بوتلميت بين التحديات والطموح",
-      category:"التنمية والواقع المعاصر",
-      excerpt:"قراءة في واقع التعليم وحاجات المؤسسات التعليمية وآفاق تطويرها.",
-      body:"يظل التعليم من أهم محاور التنمية المحلية، ويحتاج إلى رؤية شاملة تجمع بين تحسين البنى التحتية، ودعم الكادر التعليمي، وتشجيع المبادرات المجتمعية.",
-      image:"https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900",
-      date:"2026-09-28"
+      title:'واقع التعليم في بوتلميت بين التحديات والطموح',
+      section:'development',
+      excerpt:'قراءة هادئة في واقع التعليم وحاجات المؤسسات التعليمية وآفاق تطويرها.',
+      body:'يظل التعليم من المحاور الأساسية في أي رؤية تنموية للمدينة، ويحتاج إلى تشخيص دقيق للواقع، ثم مقترحات قابلة للتنفيذ تراعي الإمكانات المحلية وحاجات السكان.',
+      image:'boutilimit-1.jpg',
+      date:'2026-09-28'
     }
   ],
-
   people:[
-    {
-      id:1,
-      name:"الشيخ سيديا الكبير",
-      role:"عالم من أعلام بوتلميت",
-      image:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300"
-    },
-    {
-      id:2,
-      name:"علماء بوتلميت",
-      role:"ذاكرة علمية وثقافية",
-      image:"https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300"
-    },
-    {
-      id:3,
-      name:"أدباء المدينة",
-      role:"شعر وأدب وفكر",
-      image:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300"
-    }
+    {id:1,name:'العلماء والمحاظر',role:'أعلام العلم والتعليم'},
+    {id:2,name:'القضاة والفقهاء',role:'ذاكرة القضاء والفقه'},
+    {id:3,name:'الأدباء والشعراء',role:'أصوات الأدب والثقافة'},
+    {id:4,name:'الرواد والشخصيات الوطنية',role:'سير وشهادات موثقة'}
   ],
-
   videos:[
-    {
-      id:1,
-      title:"جولة في مدينة بوتلميت",
-      url:"#",
-      image:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700"
-    },
-    {
-      id:2,
-      title:"شهادات من ذاكرة الأهالي",
-      url:"#",
-      image:""
-    },
-    {
-      id:3,
-      title:"تاريخ المحاظر في بوتلميت",
-      url:"#",
-      image:""
-    }
+    {id:1,title:'جولة في مدينة بوتلميت',url:'#',image:'boutilimit-1.jpg'},
+    {id:2,title:'بوتلميت من الأعلى',url:'#',image:'boutilimit-2.jpg'}
   ]
 };
 
+let DATA=load();
+let active='all';
+let hero=0;
 
-/* ==========================
-   التخزين
-========================== */
-
-function loadData(){
-  const saved = localStorage.getItem("boutilimit_site_data");
-
-  if(saved){
-    try{
-      return JSON.parse(saved);
-    }catch(e){}
+function load(){
+  try{
+    return JSON.parse(localStorage.getItem('boutilimit_data')) || structuredClone(DEFAULT);
+  }catch{
+    return JSON.parse(JSON.stringify(DEFAULT));
   }
-
-  localStorage.setItem(
-    "boutilimit_site_data",
-    JSON.stringify(DEFAULT_DATA)
-  );
-
-  return JSON.parse(JSON.stringify(DEFAULT_DATA));
 }
 
-let DATA = loadData();
-
-function saveData(){
-  localStorage.setItem(
-    "boutilimit_site_data",
-    JSON.stringify(DATA)
-  );
-
-  renderEverything();
+function save(){
+  localStorage.setItem('boutilimit_data',JSON.stringify(DATA));
+  renderAll();
 }
 
-
-/* ==========================
-   المساعدة
-========================== */
-
-function escapeHtml(value=""){
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;");
+function esc(v=''){
+  return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-function nl2br(value=""){
-  return escapeHtml(value).replace(/\n/g,"<br>");
+function sectionTitle(id){
+  return SECTIONS.find(x=>x.id===id)?.title || '';
 }
 
-function fileToBase64(file){
-  return new Promise((resolve,reject)=>{
-    const reader = new FileReader();
+function renderSections(){
+  document.getElementById('sections').innerHTML = SECTIONS.map((s,i)=>`
+    <article class="section-card" style="--bg:url('${i%2 ? 'boutilimit-2.jpg' : 'boutilimit-1.jpg'}')" onclick="filterSection('${s.id}')">
+      <span class="index-badge">${i+1}</span>
+      <span class="section-icon">${s.icon}</span>
+      <h3>${esc(s.title)}</h3>
+      <ul>${s.branches.slice(0,3).map(b=>`<li>${esc(b)}</li>`).join('')}</ul>
+      <span class="enter">دخول ←</span>
+    </article>
+  `).join('');
 
-    reader.onload = ()=>resolve(reader.result);
-    reader.onerror = reject;
-
-    reader.readAsDataURL(file);
-  });
+  document.getElementById('footerLinks').innerHTML = SECTIONS.map(s=>`
+    <a href="#latest" onclick="filterSection('${s.id}')">${esc(s.title)}</a>
+  `).join('');
 }
 
-
-/* ==========================
-   واجهة الموقع
-========================== */
-
-function renderSettings(){
-
-  document.getElementById("heroHeading").textContent =
-    DATA.settings.heading;
-
-  document.getElementById("heroText").textContent =
-    DATA.settings.description;
-
-  document.querySelector(".hero").style.backgroundImage =
-    `url("${DATA.settings.heroImage}")`;
+function renderFilters(){
+  document.getElementById('filters').innerHTML = [{id:'all',title:'كل الأقسام'},...SECTIONS].map(s=>`
+    <button class="filter ${active===s.id?'active':''}" onclick="setFilter('${s.id}')">${esc(s.title)}</button>
+  `).join('');
 }
 
+function renderArticles(){
+  const q=(document.getElementById('articleSearch')?.value||'').toLowerCase().trim();
+  const items=DATA.articles
+    .filter(a=>(active==='all'||a.section===active) && (!q||[a.title,a.excerpt,a.body,sectionTitle(a.section)].join(' ').toLowerCase().includes(q)))
+    .sort((a,b)=>b.id-a.id);
 
-function renderArticles(list = DATA.articles){
-
-  const box = document.getElementById("articlesGrid");
-
-  if(!list.length){
-    box.innerHTML =
-      `<div class="empty">لا توجد مقالات</div>`;
-    return;
-  }
-
-  box.innerHTML = list
-    .slice()
-    .reverse()
-    .slice(0,6)
-    .map(article=>`
-
-      <article class="article-card"
-        onclick="openArticle(${article.id})">
-
-        <img class="article-img"
-          src="${escapeHtml(article.image || "")}"
-          onerror="this.src='https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=900'">
-
-        <span class="tag">
-          ${escapeHtml(article.category)}
-        </span>
-
-        <h3>
-          ${escapeHtml(article.title)}
-        </h3>
-
-        <p>
-          ${escapeHtml(article.excerpt)}
-        </p>
-
-        <div class="meta">
-          ${escapeHtml(article.date || "")}
-        </div>
-
+  document.getElementById('articles').innerHTML = items.length
+    ? items.slice(0,6).map(a=>`
+      <article class="article">
+        <button style="all:unset;display:block;cursor:pointer;width:100%" onclick="openArticle(${a.id})">
+          <div class="article-cover"><img src="${esc(a.image)}" alt="${esc(a.title)}"></div>
+          <div class="article-meta">
+            <span class="tag">${esc(sectionTitle(a.section))}</span>
+            <time>${esc(a.date||'')}</time>
+          </div>
+          <h3>${esc(a.title)}</h3>
+          <p>${esc(a.excerpt||'')}</p>
+          <span class="read">قراءة الموضوع ←</span>
+        </button>
       </article>
-
-    `).join("");
+    `).join('')
+    : `<p style="grid-column:1/-1;text-align:center;color:#7d8987;padding:30px">لا توجد مواد مطابقة.</p>`;
 }
-
-
-function filterCategory(category){
-
-  const filtered = DATA.articles.filter(
-    a => a.category === category
-  );
-
-  document.getElementById("articlesTitle").textContent =
-    category;
-
-  renderArticles(filtered);
-
-  document.getElementById("articles")
-    .scrollIntoView({behavior:"smooth"});
-}
-
-
-function openArticle(id){
-
-  const article = DATA.articles.find(
-    a => Number(a.id) === Number(id)
-  );
-
-  if(!article) return;
-
-  document.getElementById("articleModalContent").innerHTML = `
-
-    <img
-      src="${escapeHtml(article.image || "")}"
-      onerror="this.style.display='none'">
-
-    <div style="margin-top:16px">
-      <span class="tag">
-        ${escapeHtml(article.category)}
-      </span>
-    </div>
-
-    <h1>
-      ${escapeHtml(article.title)}
-    </h1>
-
-    <div class="meta">
-      ${escapeHtml(article.date || "")}
-    </div>
-
-    <div class="article-body">
-      ${nl2br(article.body)}
-    </div>
-  `;
-
-  document.getElementById("articleModal")
-    .classList.add("open");
-}
-
-
-function closeArticle(){
-  document.getElementById("articleModal")
-    .classList.remove("open");
-}
-
 
 function renderPeople(){
-
-  const box = document.getElementById("peopleList");
-
-  box.innerHTML = DATA.people.map(person=>`
-
+  document.getElementById('peopleList').innerHTML = DATA.people.map((p,i)=>`
     <div class="person">
-
-      <img
-        src="${escapeHtml(person.image || "")}"
-        onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300'">
-
+      <div class="person-mark">${String(i+1).padStart(2,'0')}</div>
       <div>
-        <strong>
-          ${escapeHtml(person.name)}
-        </strong>
-
-        <span>
-          ${escapeHtml(person.role)}
-        </span>
+        <strong>${esc(p.name)}</strong>
+        <span>${esc(p.role)}</span>
       </div>
-
     </div>
-
-  `).join("");
+  `).join('');
 }
 
-
 function renderVideos(){
-
-  const box = document.getElementById("videosBox");
-
+  const el=document.getElementById('videoList');
   if(!DATA.videos.length){
-    box.innerHTML =
-      `<div class="empty">لا توجد فيديوهات</div>`;
+    el.innerHTML='<p style="font-size:10px;color:#82908d">لا توجد فيديوهات بعد.</p>';
     return;
   }
 
-  const first = DATA.videos[0];
-
-  box.innerHTML = `
-
-    <div class="video-main">
-
-      <img src="${escapeHtml(first.image || "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=700")}">
-
-      <button class="play"
-        onclick="openVideo('${escapeHtml(first.url)}')">
-        ▶
-      </button>
-
-    </div>
-
-    <strong style="display:block;margin-top:9px">
-      ${escapeHtml(first.title)}
-    </strong>
-
-    <div class="video-list">
-
-      ${DATA.videos.slice(1).map(video=>`
-
-        <div class="video-row"
-          onclick="openVideo('${escapeHtml(video.url)}')"
-          style="cursor:pointer">
-
-          <strong>
-            ${escapeHtml(video.title)}
-          </strong>
-
-          <span>
-            مشاهدة الفيديو
-          </span>
-
+  const f=DATA.videos[0];
+  el.innerHTML=`
+    <a class="video-feature" href="${esc(f.url)}" ${f.url==='#'?'onclick="return false"':'target="_blank"'}>
+      <img src="${esc(f.image)}" alt="">
+      <span class="play"><span>▶</span></span>
+    </a>
+    <strong class="video-title">${esc(f.title)}</strong>
+    ${DATA.videos.slice(1,4).map(v=>`
+      <a class="video-row" href="${esc(v.url)}" ${v.url==='#'?'onclick="return false"':'target="_blank"'}>
+        <div class="video-thumb"><img src="${esc(v.image)}" alt=""></div>
+        <div>
+          <strong>${esc(v.title)}</strong>
+          <span>فيديو من أرشيف الموقع</span>
         </div>
-
-      `).join("")}
-
-    </div>
+      </a>
+    `).join('')}
   `;
 }
 
-
-function openVideo(url){
-
-  if(!url || url === "#"){
-    alert("يمكنك إضافة رابط الفيديو من لوحة التحكم.");
-    return;
-  }
-
-  window.open(url,"_blank");
+function renderSettings(){
+  document.getElementById('heroHeading').textContent=DATA.settings.heading;
+  document.getElementById('heroText').textContent=DATA.settings.text;
 }
 
+function renderAdmin(){
+  document.getElementById('aSection').innerHTML = SECTIONS.map(s=>`
+    <option value="${s.id}">${esc(s.title)}</option>
+  `).join('');
 
-function renderEverything(){
-  renderSettings();
+  document.getElementById('adminArticles').innerHTML = DATA.articles.slice().reverse().map(a=>`
+    <div class="list-item">
+      <div>
+        <strong>${esc(a.title)}</strong>
+        <small>${esc(sectionTitle(a.section))}</small>
+      </div>
+      <div class="actions">
+        <button class="edit" onclick="editArticle(${a.id})">تعديل</button>
+        <button class="danger" onclick="deleteArticle(${a.id})">حذف</button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('adminVideos').innerHTML = DATA.videos.map(v=>`
+    <div class="list-item">
+      <strong>${esc(v.title)}</strong>
+      <button class="danger" onclick="deleteVideo(${v.id})">حذف</button>
+    </div>
+  `).join('');
+
+  document.getElementById('adminPeople').innerHTML = DATA.people.map(p=>`
+    <div class="list-item">
+      <div>
+        <strong>${esc(p.name)}</strong>
+        <small>${esc(p.role)}</small>
+      </div>
+      <button class="danger" onclick="deletePerson(${p.id})">حذف</button>
+    </div>
+  `).join('');
+
+  document.getElementById('sHeading').value=DATA.settings.heading;
+  document.getElementById('sText').value=DATA.settings.text;
+}
+
+function renderAll(){
+  renderSections();
+  renderFilters();
   renderArticles();
   renderPeople();
   renderVideos();
-  renderAdminLists();
+  renderSettings();
+  renderAdmin();
+  document.getElementById('year').textContent=new Date().getFullYear();
 }
 
+function setFilter(id){
+  active=id;
+  renderFilters();
+  renderArticles();
+}
 
-renderEverything();
+function filterSection(id){
+  setFilter(id);
+  document.getElementById('articlesHeading').textContent=sectionTitle(id);
+  document.getElementById('latest').scrollIntoView({behavior:'smooth'});
+}
 
+function resetFilter(){
+  active='all';
+  document.getElementById('articlesHeading').textContent='أحدث المقالات';
+  document.getElementById('articleSearch').value='';
+  renderFilters();
+  renderArticles();
+}
 
-/* ==========================
-   البحث
-========================== */
+function openArticle(id){
+  const a=DATA.articles.find(x=>x.id===id);
+  if(!a) return;
+  document.getElementById('modalImage').src=a.image;
+  document.getElementById('modalTag').textContent=sectionTitle(a.section);
+  document.getElementById('modalTitle').textContent=a.title;
+  document.getElementById('modalDate').textContent=a.date||'';
+  document.getElementById('modalBody').textContent=a.body||'';
+  document.getElementById('articleModal').classList.add('open');
+}
 
-document.getElementById("searchInput")
-.addEventListener("input",function(){
+function closeArticle(){
+  document.getElementById('articleModal').classList.remove('open');
+}
 
-  const value = this.value.trim().toLowerCase();
+function showHero(i){
+  hero=(i+2)%2;
+  document.querySelectorAll('.hero-slide').forEach((s,n)=>s.classList.toggle('active',n===hero));
+  document.querySelectorAll('.dots button').forEach((d,n)=>d.classList.toggle('active',n===hero));
+}
 
-  if(!value){
-    document.getElementById("articlesTitle").textContent =
-      "أحدث المقالات";
+function changeHero(d){
+  showHero(hero+d);
+}
 
-    renderArticles();
-    return;
-  }
-
-  const filtered = DATA.articles.filter(article=>
-    article.title.toLowerCase().includes(value) ||
-    article.excerpt.toLowerCase().includes(value) ||
-    article.body.toLowerCase().includes(value) ||
-    article.category.toLowerCase().includes(value)
-  );
-
-  document.getElementById("articlesTitle").textContent =
-    "نتائج البحث";
-
-  renderArticles(filtered);
-});
-
-
-/* ==========================
-   لوحة التحكم
-========================== */
+setInterval(()=>changeHero(1),8000);
 
 function openAdmin(){
-
-  document.getElementById("adminOverlay")
-    .classList.add("open");
-
-  document.body.style.overflow="hidden";
+  document.getElementById('adminOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
 }
-
 
 function closeAdmin(){
-
-  document.getElementById("adminOverlay")
-    .classList.remove("open");
-
-  document.body.style.overflow="";
+  document.getElementById('adminOverlay').classList.remove('open');
+  document.body.style.overflow='';
 }
 
-
-function adminLogin(){
-
-  const password =
-    document.getElementById("adminPasswordInput").value;
-
-  const savedPassword =
-    localStorage.getItem("boutilimit_admin_password")
-    || "2026";
-
-  if(password !== savedPassword){
-
-    alert("كلمة المرور غير صحيحة");
+function loginAdmin(){
+  const p=document.getElementById('password').value;
+  if(p!==(localStorage.getItem('boutilimit_password')||'2026')){
+    alert('كلمة المرور غير صحيحة');
     return;
   }
-
-  document.getElementById("loginView").style.display="none";
-  document.getElementById("dashboardView").style.display="block";
-
-  renderAdminLists();
+  document.getElementById('loginView').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+  renderAdmin();
 }
 
-
-function openAdminTab(id,button){
-
-  document.querySelectorAll(".admin-section")
-    .forEach(el=>el.classList.remove("active"));
-
-  document.getElementById(id)
-    .classList.add("active");
-
-  document.querySelectorAll(".admin-tabs button")
-    .forEach(el=>el.classList.remove("active"));
-
-  button.classList.add("active");
+function tab(id,b){
+  document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
 }
 
-
-/* ==========================
-   إدارة المقالات
-========================== */
-
-async function saveArticle(){
-
-  const id =
-    document.getElementById("articleId").value;
-
-  const title =
-    document.getElementById("articleTitleInput").value.trim();
-
-  if(!title){
-    alert("اكتب عنوان المقال");
-    return;
-  }
-
-  let image =
-    document.getElementById("articleImageInput").value.trim();
-
-  const file =
-    document.getElementById("articleImageFile").files[0];
-
-  if(file){
-    image = await fileToBase64(file);
-  }
-
-  const article = {
-
-    id: id
-      ? Number(id)
-      : Date.now(),
-
-    title,
-
-    category:
-      document.getElementById("articleCategoryInput").value,
-
-    excerpt:
-      document.getElementById("articleExcerptInput").value,
-
-    body:
-      document.getElementById("articleBodyInput").value,
-
-    image,
-
-    date:
-      new Date().toISOString().slice(0,10)
+function saveArticle(){
+  const id=Number(document.getElementById('aId').value)||Date.now();
+  const item={
+    id,
+    title:document.getElementById('aTitle').value.trim(),
+    section:document.getElementById('aSection').value,
+    excerpt:document.getElementById('aExcerpt').value.trim(),
+    body:document.getElementById('aBody').value.trim(),
+    image:document.getElementById('aImage').value,
+    date:new Date().toISOString().slice(0,10)
   };
-
-  if(id){
-
-    const index = DATA.articles.findIndex(
-      a=>Number(a.id)===Number(id)
-    );
-
-    if(index !== -1)
-      DATA.articles[index] = article;
-
-  }else{
-
-    DATA.articles.push(article);
+  if(!item.title){
+    alert('اكتب عنوان المقال');
+    return;
   }
-
-  saveData();
-  resetArticleForm();
-
-  alert("تم حفظ المقال بنجاح");
+  const i=DATA.articles.findIndex(x=>x.id===id);
+  if(i>=0) DATA.articles[i]=item;
+  else DATA.articles.push(item);
+  save();
+  clearArticle();
+  alert('تم حفظ المقال');
 }
-
 
 function editArticle(id){
-
-  const article = DATA.articles.find(
-    a=>Number(a.id)===Number(id)
-  );
-
-  if(!article) return;
-
-  document.getElementById("articleId").value =
-    article.id;
-
-  document.getElementById("articleTitleInput").value =
-    article.title;
-
-  document.getElementById("articleCategoryInput").value =
-    article.category;
-
-  document.getElementById("articleExcerptInput").value =
-    article.excerpt;
-
-  document.getElementById("articleBodyInput").value =
-    article.body;
-
-  document.getElementById("articleImageInput").value =
-    article.image && !article.image.startsWith("data:")
-      ? article.image
-      : "";
-
-  window.scrollTo({top:0,behavior:"smooth"});
+  const a=DATA.articles.find(x=>x.id===id);
+  if(!a) return;
+  document.getElementById('aId').value=a.id;
+  document.getElementById('aTitle').value=a.title;
+  document.getElementById('aSection').value=a.section;
+  document.getElementById('aExcerpt').value=a.excerpt;
+  document.getElementById('aBody').value=a.body;
+  document.getElementById('aImage').value=a.image;
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
+function clearArticle(){
+  ['aId','aTitle','aExcerpt','aBody'].forEach(id=>document.getElementById(id).value='');
+}
 
 function deleteArticle(id){
-
-  if(!confirm("هل تريد حذف هذا المقال؟"))
-    return;
-
-  DATA.articles = DATA.articles.filter(
-    a=>Number(a.id)!==Number(id)
-  );
-
-  saveData();
+  if(confirm('حذف هذا المقال؟')){
+    DATA.articles=DATA.articles.filter(x=>x.id!==id);
+    save();
+  }
 }
-
-
-function resetArticleForm(){
-
-  [
-    "articleId",
-    "articleTitleInput",
-    "articleExcerptInput",
-    "articleBodyInput",
-    "articleImageInput"
-  ].forEach(id=>
-    document.getElementById(id).value=""
-  );
-
-  document.getElementById("articleImageFile").value="";
-}
-
-
-/* ==========================
-   الفيديوهات
-========================== */
 
 function addVideo(){
-
-  const title =
-    document.getElementById("videoTitleInput").value.trim();
-
-  if(!title){
-    alert("اكتب عنوان الفيديو");
+  const t=document.getElementById('vTitle').value.trim();
+  if(!t){
+    alert('اكتب عنوان الفيديو');
     return;
   }
-
   DATA.videos.push({
-
     id:Date.now(),
-
-    title,
-
-    url:
-      document.getElementById("videoUrlInput").value.trim(),
-
-    image:
-      document.getElementById("videoImageInput").value.trim()
+    title:t,
+    url:document.getElementById('vUrl').value.trim()||'#',
+    image:document.getElementById('vImage').value
   });
-
-  saveData();
-
-  document.getElementById("videoTitleInput").value="";
-  document.getElementById("videoUrlInput").value="";
-  document.getElementById("videoImageInput").value="";
+  document.getElementById('vTitle').value='';
+  document.getElementById('vUrl').value='';
+  save();
 }
-
 
 function deleteVideo(id){
-
-  if(!confirm("حذف الفيديو؟"))
-    return;
-
-  DATA.videos = DATA.videos.filter(
-    v=>Number(v.id)!==Number(id)
-  );
-
-  saveData();
+  if(confirm('حذف الفيديو؟')){
+    DATA.videos=DATA.videos.filter(x=>x.id!==id);
+    save();
+  }
 }
-
-
-/* ==========================
-   الشخصيات
-========================== */
 
 function addPerson(){
-
-  const name =
-    document.getElementById("personNameInput").value.trim();
-
-  if(!name){
-    alert("اكتب اسم الشخصية");
+  const n=document.getElementById('pName').value.trim();
+  if(!n){
+    alert('اكتب الاسم');
     return;
   }
-
   DATA.people.push({
-
     id:Date.now(),
-
-    name,
-
-    role:
-      document.getElementById("personRoleInput").value.trim(),
-
-    image:
-      document.getElementById("personImageInput").value.trim()
+    name:n,
+    role:document.getElementById('pRole').value.trim()
   });
-
-  saveData();
-
-  document.getElementById("personNameInput").value="";
-  document.getElementById("personRoleInput").value="";
-  document.getElementById("personImageInput").value="";
+  document.getElementById('pName').value='';
+  document.getElementById('pRole').value='';
+  save();
 }
-
 
 function deletePerson(id){
-
-  if(!confirm("حذف الشخصية؟"))
-    return;
-
-  DATA.people = DATA.people.filter(
-    p=>Number(p.id)!==Number(id)
-  );
-
-  saveData();
-}
-
-
-/* ==========================
-   إعدادات الموقع
-========================== */
-
-async function saveSettings(){
-
-  DATA.settings.heading =
-    document.getElementById("settingHeading").value.trim();
-
-  DATA.settings.description =
-    document.getElementById("settingDescription").value.trim();
-
-  let hero =
-    document.getElementById("settingHeroImage").value.trim();
-
-  const file =
-    document.getElementById("settingHeroFile").files[0];
-
-  if(file){
-    hero = await fileToBase64(file);
-  }
-
-  if(hero)
-    DATA.settings.heroImage = hero;
-
-  saveData();
-
-  alert("تم حفظ إعدادات الموقع");
-}
-
-
-/* ==========================
-   قوائم لوحة التحكم
-========================== */
-
-function renderAdminLists(){
-
-  const articlesList =
-    document.getElementById("adminArticlesList");
-
-  if(articlesList){
-
-    articlesList.innerHTML =
-      DATA.articles.length
-
-      ? DATA.articles.slice().reverse().map(a=>`
-
-        <div class="admin-list-item">
-
-          <div>
-            <strong>${escapeHtml(a.title)}</strong>
-            <div style="font-size:11px;color:#888">
-              ${escapeHtml(a.category)}
-            </div>
-          </div>
-
-          <div class="admin-actions">
-
-            <button class="edit"
-              onclick="editArticle(${a.id})">
-              تعديل
-            </button>
-
-            <button class="danger"
-              onclick="deleteArticle(${a.id})">
-              حذف
-            </button>
-
-          </div>
-
-        </div>
-
-      `).join("")
-
-      : `<div class="empty">لا توجد مقالات</div>`;
-  }
-
-
-  const videosList =
-    document.getElementById("adminVideosList");
-
-  if(videosList){
-
-    videosList.innerHTML =
-      DATA.videos.map(v=>`
-
-        <div class="admin-list-item">
-
-          <strong>
-            ${escapeHtml(v.title)}
-          </strong>
-
-          <button class="danger"
-            onclick="deleteVideo(${v.id})">
-            حذف
-          </button>
-
-        </div>
-
-      `).join("");
-  }
-
-
-  const peopleList =
-    document.getElementById("adminPeopleList");
-
-  if(peopleList){
-
-    peopleList.innerHTML =
-      DATA.people.map(p=>`
-
-        <div class="admin-list-item">
-
-          <div>
-            <strong>
-              ${escapeHtml(p.name)}
-            </strong>
-
-            <div style="font-size:11px;color:#888">
-              ${escapeHtml(p.role)}
-            </div>
-          </div>
-
-          <button class="danger"
-            onclick="deletePerson(${p.id})">
-            حذف
-          </button>
-
-        </div>
-
-      `).join("");
-  }
-
-
-  const heading =
-    document.getElementById("settingHeading");
-
-  if(heading){
-
-    heading.value =
-      DATA.settings.heading;
-
-    document.getElementById("settingDescription").value =
-      DATA.settings.description;
-
-    document.getElementById("settingHeroImage").value =
-      DATA.settings.heroImage.startsWith("data:")
-        ? ""
-        : DATA.settings.heroImage;
+  if(confirm('حذف العنصر؟')){
+    DATA.people=DATA.people.filter(x=>x.id!==id);
+    save();
   }
 }
 
-
-/* ==========================
-   النسخ الاحتياطي
-========================== */
+function saveSettings(){
+  DATA.settings.heading=document.getElementById('sHeading').value.trim();
+  DATA.settings.text=document.getElementById('sText').value.trim();
+  save();
+  alert('تم حفظ الإعدادات');
+}
 
 function exportData(){
-
-  const text =
-    JSON.stringify(DATA,null,2);
-
-  const blob =
-    new Blob([text],{
-      type:"application/json"
-    });
-
-  const url =
-    URL.createObjectURL(blob);
-
-  const a =
-    document.createElement("a");
-
-  a.href=url;
-  a.download="boutilimit-backup.json";
-
+  const blob=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
+  const u=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=u;
+  a.download='boutilimit-backup.json';
   a.click();
-
-  URL.revokeObjectURL(url);
+  URL.revokeObjectURL(u);
 }
 
+document.getElementById('articleSearch').addEventListener('input',renderArticles);
 
-function importData(event){
-
-  const file =
-    event.target.files[0];
-
-  if(!file)
-    return;
-
-  const reader =
-    new FileReader();
-
-  reader.onload=function(){
-
-    try{
-
-      const imported =
-        JSON.parse(reader.result);
-
-      if(!imported.articles ||
-         !imported.settings){
-
-        throw new Error();
-      }
-
-      DATA=imported;
-
-      saveData();
-
-      alert("تمت استعادة النسخة بنجاح");
-
-    }catch(e){
-
-      alert("الملف غير صالح");
-    }
-  };
-
-  reader.readAsText(file);
-}
-
-
-/* إغلاق النوافذ */
-
-document.getElementById("articleModal")
-.addEventListener("click",function(e){
-
-  if(e.target===this)
-    closeArticle();
+document.getElementById('headerSearch').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){
+    document.getElementById('articleSearch').value=e.target.value;
+    resetFilter();
+    document.getElementById('articleSearch').value=e.target.value;
+    renderArticles();
+    document.getElementById('latest').scrollIntoView({behavior:'smooth'});
+  }
 });
 
-</script>
+document.getElementById('menuBtn').onclick=()=>document.getElementById('header').classList.toggle('open');
 
+document.getElementById('articleModal').addEventListener('click',e=>{
+  if(e.target.id==='articleModal') closeArticle();
+});
+
+renderAll();
+</script>
 </body>
 </html>
